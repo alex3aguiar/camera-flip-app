@@ -11,6 +11,12 @@
   }
   video{
   heigth:100vh}
+.flipped
+{
+    transform: rotateY(180deg);
+    -webkit-transform:rotateY(180deg); /* Safari and Chrome */
+    -moz-transform:rotateY(180deg); /* Firefox */
+}
 </style>
   
   
@@ -32,7 +38,15 @@ window.onload = function() {
     }).catch(function(err){
         console.log("yikes, and err!" + err.message);
     });
+function myFunction() {
+  var videoElement = document.getElementById("video");
+  if(element.classList.contains("flipped")){
+    videoElement..classList.remove("flipped")
+  }else{
+    videoElement..classList.add("flipped")
 
+  } 
+}
 }
 </script>
 
