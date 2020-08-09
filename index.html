@@ -20,7 +20,7 @@
 </style>
   
   
-  <video  muted></video>
+  <video  onclick="flip()"muted></video>
 
 <script>
 window.onload = function() {
@@ -38,7 +38,9 @@ window.onload = function() {
     }).catch(function(err){
         console.log("yikes, and err!" + err.message);
     });
-function myFunction() {
+
+}
+  function flip() {
   var videoElement = document.getElementById("video");
   if(element.classList.contains("flipped")){
     videoElement.classList.remove("flipped")
@@ -46,7 +48,6 @@ function myFunction() {
     videoElement.classList.add("flipped")
 
   } 
-}
 }
 </script>
 
