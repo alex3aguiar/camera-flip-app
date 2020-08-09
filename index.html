@@ -33,18 +33,28 @@ window.onload = function() {
 
     //add constraints object
   
-    var constraints = { audio: true,
-                        video: true};
+    var constraints = 
+        {
+          audio: false,
+          video: true
+        };
 
     //call getUserMedia, then the magic
-    navigator.mediaDevices.getUserMedia(constraints).then(function(mediaStream){
+  var handlerStream = function(mediaStream){
       debugger;
         var video = document.querySelector('video');
         video.srcObject = mediaStream;
         video.play();
-    }).catch(function(err){
+    }
+  var startStream = function(){
+   navigator.mediaDevices.getUserMedia(constraints).then(handlerStream).catch(function(err){
         console.log("yikes, and err!" + err.message);
     });
+   navigator.mediaDevices.getUserMedia(constraints).then(handlerStream).catch(function(err){
+        console.log("yikes, and err!" + err.message);
+    });
+  }
+   
 
 }
   function flip() {
@@ -65,7 +75,8 @@ const getCameraSelection = async () => {
   });
   cameraOptions.innerHTML = options.join('');
 };
-
+  
+startStream();
 getCameraSelection();
 </script>
 
