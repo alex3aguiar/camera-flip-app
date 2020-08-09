@@ -18,7 +18,11 @@
     -moz-transform:rotateY(180deg); /* Firefox */
 }
 </style>
-  
+  <div class="video-options">
+        <select name="" id="" class="custom-select">
+            <option value="">Select camera</option>
+        </select>
+    </div>
   
   <video  id="video" onclick="flip()"muted></video>
 
@@ -49,6 +53,17 @@ window.onload = function() {
 
   } 
 }
+  
+const getCameraSelection = async () => {
+  const devices = await navigator.mediaDevices.enumerateDevices();
+  const videoDevices = devices.filter(device => device.kind === 'videoinput');
+  const options = videoDevices.map(videoDevice => {
+    return `<option value="${videoDevice.deviceId}">${videoDevice.label}</option>`;
+  });
+  cameraOptions.innerHTML = options.join('');
+};
+
+getCameraSelection();
 </script>
 
 
