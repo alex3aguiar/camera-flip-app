@@ -38,6 +38,7 @@ window.onload = function() {
 
     //call getUserMedia, then the magic
     navigator.mediaDevices.getUserMedia(constraints).then(function(mediaStream){
+      debugger;
         var video = document.querySelector('video');
         video.srcObject = mediaStream;
         video.play();
