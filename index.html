@@ -56,7 +56,7 @@
                     exact: cameraOptions.value
                 }
             };
-            alert(cameraOptions.value)
+            alert(JSON.stringify(updatedConstraints))
             startStream(updatedConstraints);
         };
 
