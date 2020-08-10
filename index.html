@@ -43,7 +43,7 @@
 
         window.onload = function () {
 
-            startStream();
+            startStream(constraints);
             getCameraSelection();
 
 
@@ -66,14 +66,15 @@
             video.srcObject = mediaStream;
             video.play();
         }
-        var startStream = function () {
-            navigator.mediaDevices.getUserMedia(constraints).then(handlerStream).catch(function (err) {
+        var startStream = function (constraintsVideo) {
+            navigator.mediaDevices.getUserMedia(constraintsVideo).then(handlerStream).catch(function (err) {
                 console.log("yikes, and err!" + err.message);
             });
-            navigator.mediaDevices.getUserMedia(constraints).then(handlerStream).catch(function (err) {
+            navigator.mediaDevices.getUserMedia(constraintsVideo).then(handlerStream).catch(function (err) {
                 console.log("yikes, and err!" + err.message);
             });
         }
+
         function flip() {
             var videoElement = document.getElementById("video");
             if (videoElement.classList.contains("flipped")) {
