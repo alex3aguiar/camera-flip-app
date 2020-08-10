@@ -1,84 +1,102 @@
-<html><head>
-<title>camera-flip-app</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html>
+
+<head>
+    <title>camera-flip-app</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head>
+
 <body>
-<style type="text/css">
-  *>* {
-  margin:0;
-    padding:0;
-  }
-  video{
-  heigth:100vh}
-.flipped
-{
-    transform: rotateY(180deg);
-    -webkit-transform:rotateY(180deg); /* Safari and Chrome */
-    -moz-transform:rotateY(180deg); /* Firefox */
-}
-</style>
-  <div class="video-options">
+    <style type="text/css">
+        *>* {
+            margin: 0;
+            padding: 0;
+        }
+
+        video {
+            heigth: 100vh
+        }
+
+        .flipped {
+            transform: rotateY(180deg);
+            -webkit-transform: rotateY(180deg);
+            /* Safari and Chrome */
+            -moz-transform: rotateY(180deg);
+            /* Firefox */
+        }
+    </style>
+    <div class="video-options">
         <select name="" id="" class="custom-select">
             <option value="">Select camera</option>
         </select>
     </div>
-  
-  <video  id="video" onclick="flip()"muted></video>
 
-<script>
-  const cameraOptions = document.querySelector('.video-options>select');
+    <video id="video" onclick="flip()" muted></video>
 
-window.onload = function() {
-
-    //add constraints object
-  
-    var constraints = 
+    <script>
+        const cameraOptions = document.querySelector('.video-options>select');
+        var constraints =
         {
-          audio: false,
-          video: true
+            audio: false,
+            video: true
         };
 
-    //call getUserMedia, then the magic
-  var handlerStream = function(mediaStream){
-      debugger;
-        var video = document.querySelector('video');
-        video.srcObject = mediaStream;
-        video.play();
-    }
-  var startStream = function(){
-   navigator.mediaDevices.getUserMedia(constraints).then(handlerStream).catch(function(err){
-        console.log("yikes, and err!" + err.message);
-    });
-   navigator.mediaDevices.getUserMedia(constraints).then(handlerStream).catch(function(err){
-        console.log("yikes, and err!" + err.message);
-    });
-  }
-   
+        window.onload = function () {
 
-}
-  function flip() {
-  var videoElement = document.getElementById("video");
-  if(videoElement.classList.contains("flipped")){
-    videoElement.classList.remove("flipped")
-  }else{
-    videoElement.classList.add("flipped")
-
-  } 
-}
-  
-const getCameraSelection = async () => {
-  const devices = await navigator.mediaDevices.enumerateDevices();
-  const videoDevices = devices.filter(device => device.kind === 'videoinput');
-  const options = videoDevices.map(videoDevice => {
-    return `<option value="${videoDevice.deviceId}">${videoDevice.label}</option>`;
-  });
-  cameraOptions.innerHTML = options.join('');
-};
-  
-startStream();
-getCameraSelection();
-</script>
+            startStream();
+            getCameraSelection();
 
 
-</body></html>
+
+        }
+        cameraOptions.onchange = () => {
+            const updatedConstraints = {
+                ...constraints,
+                deviceId: {
+                    exact: cameraOptions.value
+                }
+            };
+
+            startStream(updatedConstraints);
+        };
+
+        //call getUserMedia, then the magic
+        var handlerStream = function (mediaStream) {
+            var video = document.querySelector('video');
+            video.srcObject = mediaStream;
+            video.play();
+        }
+        var startStream = function () {
+            navigator.mediaDevices.getUserMedia(constraints).then(handlerStream).catch(function (err) {
+                console.log("yikes, and err!" + err.message);
+            });
+            navigator.mediaDevices.getUserMedia(constraints).then(handlerStream).catch(function (err) {
+                console.log("yikes, and err!" + err.message);
+            });
+        }
+        function flip() {
+            var videoElement = document.getElementById("video");
+            if (videoElement.classList.contains("flipped")) {
+                videoElement.classList.remove("flipped")
+            } else {
+                videoElement.classList.add("flipped")
+
+            }
+        }
+
+        const getCameraSelection = async () => {
+            const devices = await navigator.mediaDevices.enumerateDevices();
+            const videoDevices = devices.filter(device => device.kind === 'videoinput');
+            const options = videoDevices.map(videoDevice => {
+                return `<option value="${videoDevice.deviceId}">${videoDevice.label}</option>`;
+            });
+            cameraOptions.innerHTML = options.join('');
+        };
+
+
+    </script>
+
+
+</body>
+
+</html>
