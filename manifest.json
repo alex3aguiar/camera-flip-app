@@ -4,7 +4,7 @@
     "name": "camera-flip-app",
     "short_name": "camera-flip-app",
     "scope": "/camera-flip-app/",
-    "display": "browser",
+    "display": "fullscreen",
     "start_url": "https://alex3aguiar.github.io/camera-flip-app/",
     "background_color": "transparent",
     "theme_color": "transparent",
